@@ -20,7 +20,7 @@ params:
     - /img/es_pathogens_logo.png
   # local node info, logo will be displayed above pathogens logo
   # given 'node_country' is an example, change the value to actual country
-  portal_logo: "/img/pathogens_logo.svg"
+  portal_logo: "/img/es_pathogens_logo.png"
   node_logo: "/img/isciii_logo.png"
   node_url: "https://www.isciii.es/en/"
   node_country: "Spain"
