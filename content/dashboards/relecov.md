@@ -10,4 +10,4 @@ dashboards_topics: [Viruses, SARS-CoV-2, Influenza, RSV, Surveillance]
 redirect_url: "https://relecov.isciii.es/"
 ---
 
-RELECOV network. National Laboratory Network for SARS-CoV-2 Genomic Sequencing
+RELECOV network. National Laboratory Network for SARS-CoV-2 Genomic Sequencing.
