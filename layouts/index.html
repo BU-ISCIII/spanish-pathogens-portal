@@ -1,0 +1,91 @@
+{{ define "main" }}
+
+<!-- Main content -->
+<div class="row">
+
+     <!-- Content on the left side Dashboard, News, etc -->
+     <div class="col-md-8 vert-line-right mt-3">
+        
+         <!-- Dashboards -->
+         <div class="row ">
+             <div class="col">
+                 <h3 class="mt-0">Data Dashboard</h3>
+             </div>
+             <div class="col mt-2 pt-1 text-end see-all-link-text">
+                 <a href="/dashboards/">See all dashboards <i class="bi bi-arrow-right-square-fill"></i></a>
+             </div>
+         </div>
+         {{ partial "dashboards.html" . }}
+
+         <!-- News and data highlights -->
+         <div class="row mt-4 mb-2">
+             <div class="col">
+                 <h3 class="mt-0">Data Highlights</h3>
+             </div>
+             <div class="col mt-2 pt-1 text-end see-all-link-text">
+                 <a href="/highlights/">See all Data highlights <i class="bi bi-arrow-right-square-fill"></i></a>
+             </div>
+         </div>
+         {{ partial "highlights.html" . }}
+        
+    </div>
+    <!-- Content on the left ends here -->
+
+    <!-- Content on the right side, list of events -->
+    <div class="col-md-4 ms-auto p-3">
+        <!-- Topics -->
+        <div class="bg-home-topics mb-4 pb-2">
+            <h4 class="mt-0 mb-2">Topics</h4>
+            <p class="mb-2 small">Click on one of the <b><a class="dark-blue" href="/topics/">topics</a></b> below to see only the content that is related to that topic.</p>
+            {{ range where .Site.Menus.topics "Identifier" "ne" "all_topics" }}
+              <a href="{{ .Page.RelPermalink }}"><span class="bg-home-topics-btn">{{ .Name }}</span></a>
+            {{ end }}
+        </div>
+        <!-- end Topics -->
+
+        <!-- Events -->
+        {{ $upcoming_events := slice }}
+        {{ range sort $.Site.Data.events ".date_start" "asc" }}
+            {{ if ge (.date_start | time.Format "20060102") (now | time.Format "20060102") }}
+                {{ $upcoming_events = $upcoming_events | append . }}
+            {{ end }}
+        {{ end }}
+        <section id="events-section">
+            <div class="row mt-4">
+                <h4 class="mb-1">Events</h4>
+                <p class="mb-2 small">The titles and start dates of upcoming events.</p>
+                <div class="border ms-2 p-3">
+                    {{ if ge (len $upcoming_events) 1 }}
+                        {{ range first 3 $upcoming_events }}
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <a href="{{ .event_url }}">{{ .title }}</a>
+                                    </div>
+                                    <div>
+                                        <div class="px-2 py-1 d-flex flex-column rounded card-badge mw-100">
+                                            <div class="px-2 fs-6 mx-auto">{{ .date_start | time.Format "02" }}</div>
+                                            <div class="pb-1 px-2 fs-6 mx-auto">{{ .date_start | time.Format "Jan" }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="px-4 py-1">
+                                    <hr class="my-2">
+                                </div>
+                            </div>
+                        {{ end }}
+                        <div class="mt-2 bg-see-all-link">
+                            <a class="dark-blue" href="/events/">See all events <i class="bi bi-arrow-right-square-fill"></i></a>
+                        </div>
+                    {{ else }}
+                        <p>No upcoming events!</p>
+                    {{ end }}
+                </div>
+            </div>
+        </section>
+        <!-- events code ends here -->
+    </div>
+    <!-- content on the right ends here -->
+</div>
+
+{{ end }}
