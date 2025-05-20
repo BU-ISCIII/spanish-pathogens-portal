@@ -1,7 +1,7 @@
 ---
 title: "Antimicrobial Resistance"
 description: Dashboards and data related with antibiotic resistance.
-topic: antimicrobial_resistance
+topic: antimicrobial resistance
 banner: /topics/banners/topic_antibiotic.jpg
 banner_caption: "Antimicrobial Resistance"
 menu:
