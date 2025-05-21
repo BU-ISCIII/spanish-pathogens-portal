@@ -1,15 +1,15 @@
 [
     {
-        "title": "Sample event for the portal",
+        "title": "We will ask people from RedLabra to show events here",
         "type": "Event",
-        "date_start": "2050-01-01",
+        "date_start": "2050-06-01",
         "time_start": "9:00",
-        "date_end": "2050-01-01",
+        "date_end": "2050-06-30",
         "time_end": "17:00",
-        "venue": "EMBL, UK",
-        "organisers": "Pathogens portal",
-        "event_url": "https://examplelink.com",
-        "description": "This is a example ebent to showcase how the events are displayed. Update this events file with your own events. See documentation in the repository for more information"
+        "venue": "ISCIII, ES",
+        "organisers": "Institute of Health Carlos III",
+        "event_url": "https://www.isciii.es/en/ub/unidad",
+        "description": "This is a example event to showcase how the events are displayed.We will ask people from RedLabra to show events here."
     },
     {
         "title": "Old event that will not be displayed",
