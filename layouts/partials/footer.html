@@ -11,6 +11,27 @@
           </ul>
       </div>
 
+      {{ $other := .Site.Menus.footer_other }}
+      {{ $data := .Site.Menus.footer_data }}
+      {{ $total := add (len $other) (len $data) }}
+      {{ if le $total 6 }}
+      <!-- Combined Other + Data -->
+      <div class="col-md px-5 px-md-2">
+        <h2 class="small text-uppercase text-muted">Other Sections</h2>
+        <ul class="list-unstyled mb-1">
+          {{ range $other }}
+          <li><a href="{{ .Page.RelPermalink }}">{{ .Name }}</a></li>
+          {{ end }}
+        </ul>
+        <h2 class="small text-uppercase text-muted mt-3">Data</h2>
+        <ul class="list-unstyled mb-1">
+          {{ range $data }}
+          <li><a href="{{ .Page.RelPermalink }}">{{ .Name }}</a></li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ else }}
+        <!-- Separate columns -->
         <!-- Other section -->
         <div class="col-md px-5 px-md-2">
           <h2 class="small text-uppercase text-muted">Other Sections</h2>
@@ -30,10 +51,11 @@
               {{ end }}
           </ul>
       </div>
+      {{ end }}
 
         {{ if .Site.Params.social_media.show_in_footer }}
         <!-- Connect -->
-        <div class="col-md px-5 px-md-2">
+        <div class="col-md-7 px-5 px-md-2">
             <h2 class="small text-uppercase text-muted">Connect</h2>
             <div>
               {{ with .Site.Params.social_media.linkedin_url }}
@@ -49,8 +71,20 @@
                 href="mailto:{{ . }}"><i class="bi bi-envelope-fill"></i></a>
               {{ end }}
             </div>
-        </div>
-        {{ end }}
+            <!-- Unified logo row aligned to the right -->
+            <div class="d-flex gap-4 align-items-center mt-3">
+              <a target="_blank" href="https://www.isciii.es/en/">
+                <img height="70" src="/img/isciii_logo.png" alt="ISCIII">
+              </a>
+              <a target="_blank" href="https://www.isciii.es/en/ub/unidad">
+                <img height="70" src="/img/buisciii_logo.png" alt="BU-ISCIII">
+              </a>
+              <a target="_blank" href="https://elixir-europe.org/what-we-offer/portals">
+                <img height="70" src="/img/elixir_spain_logo_horiz.png" alt="ELIXIR Spain">
+              </a>
+            </div>
+          </div>
+          {{ end }}
     </div>
 
     <!-- Project funding info and license -->
@@ -76,20 +110,6 @@
             </a>
         </div>
     </div>
-  <!-- Unified logo row aligned to the right -->
-  <div class="col-md-12 d-flex justify-content-end align-items-center px-5 px-md-0">
-    <div class="d-flex gap-4 align-items-center">
-      <a target="_blank" href="https://www.isciii.es/en/">
-        <img height="70" src="/img/isciii_logo.png" alt="ISCIII">
-      </a>
-      <a target="_blank" href="https://www.isciii.es/en/ub/unidad">
-        <img height="70" src="/img/buisciii_logo.png" alt="BU-ISCIII">
-      </a>
-      <a target="_blank" href="https://elixir-europe.org/what-we-offer/portals">
-        <img height="70" src="/img/elixir_spain_logo_horiz.png" alt="ELIXIR Spain">
-      </a>
-    </div>
-  </div> 
 </footer>
 
 <!-- Bootstrap Bundle with Popper -->
