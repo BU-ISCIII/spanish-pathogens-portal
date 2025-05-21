@@ -1,13 +1,13 @@
 ---
 title: "SARS-CoV-2"
 description: Dashboards and data related with SARS-CoV-2.
-topic: sars_cov2
+topic: sars-cov-2
 banner: /topics/banners/topic_covid.jpg
 banner_caption: "SARS-CoV-2"
 menu:
   topics:
     name: SARS-CoV-2
-    identifier: sars_cov2
+    identifier: sars-cov-2
 ---
 
 This section includes dashboards and reports related **SARS-CoV-2**.
