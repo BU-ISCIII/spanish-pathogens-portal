@@ -4,6 +4,9 @@ menu:
   navbar_about:
     name:  "Partner organisations<br><br>"
     weight: 40
+  footer_about:
+    name: Partners
+    identifier: partners
 layout: about_navbar
 ---
 

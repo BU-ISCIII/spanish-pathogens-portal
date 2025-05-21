@@ -14,7 +14,7 @@ menu:
 layout: about_navbar
 ---
 
-## About
+## About the portal
 
 The Pathogens Portal is a platform for sharing data and analysis results on infectious diseases. The portal is designed to be a regional hub for researchers, public health officials, and the general public to access and share data on infectious diseases.
 
