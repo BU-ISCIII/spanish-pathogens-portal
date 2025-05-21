@@ -10,7 +10,7 @@ layout: about_navbar
 <div class="row">
   <div class="col-12 col-md-4 col-lg-3 d-none d-md-block">
     <figure class="figure mt-3">
-      <img width="250" height="60" alt="ISCIII logo" src="/img/isciii_logo.png">
+      <img width="250" alt="ISCIII logo" src="/img/isciii_logo.png">
     </figure>
   </div>
   <div class="col-12 col-md-8 col-lg-9">
@@ -24,7 +24,7 @@ layout: about_navbar
 <div class="row mt-4">
   <div class="col-12 col-md-4 col-lg-3 d-none d-md-block">
     <figure class="figure">
-      <img width="190" height="130" alt="BU-ISCIII logo" src="/img/buisciii_logo.png">
+      <img width="190" alt="BU-ISCIII logo" src="/img/buisciii_logo.png">
     </figure>
   </div>
   <div class="col-12 col-md-8 col-lg-9">
