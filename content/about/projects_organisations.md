@@ -4,6 +4,9 @@ menu:
   navbar_about:
     name: "Projects & organisations<br>behind the portal"
     weight: 20
+  footer_about:
+    name: Projects & Organisations
+    identifier: projects
 layout: about_navbar
 ---
 
