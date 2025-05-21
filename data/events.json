@@ -1,15 +1,15 @@
 [
     {
-        "title": "We will ask people from RedLabra to show events here",
-        "type": "Event",
-        "date_start": "2050-06-01",
-        "time_start": "9:00",
-        "date_end": "2050-06-30",
-        "time_end": "17:00",
-        "venue": "ISCIII, ES",
-        "organisers": "Institute of Health Carlos III",
-        "event_url": "https://www.isciii.es/en/ub/unidad",
-        "description": "This is a example event to showcase how the events are displayed.We will ask people from RedLabra to show events here."
+        "title": "Meeting CIBERBBN-CIBERINFEC",
+        "type": "Meeting",
+        "date_start": "2025-11-13",
+        "time_start": "",
+        "date_end": "2025-11-14",
+        "time_end": "",
+        "venue": "To be confirmed",
+        "organisers": "CIBER",
+        "event_url": "",
+        "description": ""
     },
     {
         "title": "Old event that will not be displayed",
