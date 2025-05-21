@@ -1,9 +1,9 @@
 ---
 title: Portal news
-menu:
-    footer_about:
-        name: Portal news
-        weight: 15
+#menu:
+#    footer_about:
+#        name: Portal news
+#        weight: 15
 ---
 
 ## This section has no content for the moment.
