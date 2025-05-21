@@ -23,11 +23,11 @@ layout: about_navbar
 <div class="row mt-4">
   <div class="col-12 col-md-4 col-lg-3 d-none d-md-block">
     <figure class="figure">
-      <img width="170" alt="ELIXIR logo" src="/img/elixir_logo.png">
+      <img width="250" alt="ELIXIR logo" src="/img/elixir_spain_logo_horiz.png">
     </figure>
   </div>
   <div class="col-12 col-md-8 col-lg-9">
-  <h6>INB-ELIXIR-ES</h6>
+  <h6>ELIXIR-ES</h6>
     <p>
     ELIXIR is an intergovernmental organisation that brings together life science resources from across Europe. These resources include databases, software tools, training materials, cloud storage and supercomputers. Under <a href="https://elixir-europe.org/what-we-offer/portals" target="_blank">Web portals</a> you will find useful portals to support you in making your data and software FAIR. BU-ISCIII has been a node of INB-Elixir-ES since 2024.
     </p>

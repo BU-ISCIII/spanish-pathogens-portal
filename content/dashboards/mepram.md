@@ -1,7 +1,7 @@
 ---
 title: "MePRAM"
 description: "Precision Medicine Against Antimicrobial Resistance"
-banner: "/dashboards/banners/mepram_logo.jpg"
+banner: "/dashboards/banners/mepram_logo2.jpg"
 menu:
   dashboards:
     name: MePRAM
