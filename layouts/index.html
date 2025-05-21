@@ -53,7 +53,7 @@
         <section id="events-section">
             <div class="row mt-4">
                 <h4 class="mb-1">Events</h4>
-                <p class="mb-2 small">The titles and start dates of upcoming events.</p>
+                <p class="mb-2 small">First three upcoming events. Click on "See all events" to see more.</p>
                 <div class="border ms-2 p-3">
                     {{ if ge (len $upcoming_events) 1 }}
                         {{ range first 3 $upcoming_events }}
