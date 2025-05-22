@@ -15,18 +15,23 @@
 
 <!-- Breadcrumbs -->
 {{ if not .IsHome }}
-<nav aria-label="breadcrumbs" class="breadcrumbs">
-    <div class="container">
-        <ol>
-            {{ range .Ancestors.Reverse }}
-            <li>
-                <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-            </li>
+    {{ $titles_to_split := slice "Dashboards_topics" }}
+    <nav class="breadcrumbs" aria-label="breadcrumb">
+        <div class="container">
+          <ol>
+            {{ range $index, $ancestor := .Ancestors.Reverse }}
+              <!-- Special case to add parent section for taxonomy pages -->
+              {{ if in $titles_to_split $ancestor.Title }}
+                {{ $title := split $ancestor.Title "_" }}
+                {{ $section_page := .Site.GetPage (index $title 0) }}
+                <li><a href="{{ $section_page.RelPermalink }}">{{ $section_page.Title }}</a>
+                <li><span style="color:#6c757d;">{{ title (index $title 1) }}</span></li>
+              {{ else }}
+                <li><a href="{{ $ancestor.RelPermalink }}">{{ $ancestor.Title }}</a></li>
+              {{ end }}
             {{ end }}
-            <li>
-                {{ .LinkTitle }}
-            </li>
-        </ol>
-    </div>
-</nav>
+            <li aria-current="page">{{ .Title }}</li>
+          </ol>
+        </div>
+      </nav>
 {{ end }}
