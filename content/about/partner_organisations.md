@@ -11,9 +11,23 @@ layout: about_navbar
 ---
 
 <div class="row">
+  <div class="row mt-4">
+    <div class="col-12 col-md-4 col-lg-3 d-none d-md-block">
+      <figure class="figure">
+        <img width="250" alt="ELIXIR logo" src="/img/elixir_spain_logo_horiz.png">
+      </figure>
+    </div>
+    <div class="col-12 col-md-8 col-lg-9">
+    <h6>ELIXIR-ES</h6>
+      <p>
+      ELIXIR is an intergovernmental organisation that brings together life science resources from across Europe. These resources include databases, software tools, training materials, cloud storage and supercomputers. Under <a href="https://elixir-europe.org/what-we-offer/portals" target="_blank">Web portals</a> you will find useful portals to support you in making your data and software FAIR. BU-ISCIII has been a node of INB-Elixir-ES since 2024.
+      </p>
+    </div>
+  </div>
+<hr class="faded" />
   <div class="col-12 col-md-4 col-lg-3 d-none d-md-block">
     <figure class="figure">
-      <img height="50" alt="The European pathogens portal logo" src="/img/eml_pathogens_logo.svg">
+      <img width="250" alt="The European pathogens portal logo" src="/img/eml_pathogens_logo.svg">
     </figure>
   </div>
   <div class="col-12 col-md-8 col-lg-9">
@@ -22,18 +36,40 @@ layout: about_navbar
   </div>
 </div>
 <hr class="faded" />
-
 <div class="row mt-4">
   <div class="col-12 col-md-4 col-lg-3 d-none d-md-block">
     <figure class="figure">
-      <img width="250" alt="ELIXIR logo" src="/img/elixir_spain_logo_horiz.png">
+      <img width="250" alt="swedish_pathogen_portal" src="/img/swe_pathogens_social_media.png">
     </figure>
   </div>
   <div class="col-12 col-md-8 col-lg-9">
-  <h6>ELIXIR-ES</h6>
-    <p>
-    ELIXIR is an intergovernmental organisation that brings together life science resources from across Europe. These resources include databases, software tools, training materials, cloud storage and supercomputers. Under <a href="https://elixir-europe.org/what-we-offer/portals" target="_blank">Web portals</a> you will find useful portals to support you in making your data and software FAIR. BU-ISCIII has been a node of INB-Elixir-ES since 2024.
-    </p>
+    <h6>Swedish Pathogens Portal</h6>
+    <p>The Swedish Pathogens Portal provides information about available datasets, resources, tools, and services related to pandemic preparedness in Sweden.</p>
+    <p>The Swedish Pathogens Portal is managed by the SciLifeLab Data Centre and its collaborators, who created an open-source reference framework for national data portals. This framework combines Hugo for site generation, Bootstrap for layout and styling, DataTables for tabular content, and Vega/Vega-Lite and Plotly for interactive visualizations. All components used in the Swedish Portal are openly available under the MIT license on GitHub. The development of The Spanish Pathogens Portal has been inspired by the local node portals templage generated at <a href="https://scilifelab.se/data/" target="_blank">SciLifeLab</a> based on their <a href="https://www.pathogens.se/" target="_blank">Swedish Pathogens Portal</a>.</p>
+  </div>
+</div>
+<hr class="faded" />
+<div class="row mt-4">
+  <div class="col-12 col-md-4 col-lg-3 d-none d-md-block">
+    <figure class="figure">
+      <img width="250" alt="swiss_pathogen_portal" src="/img/ch_pathogens_portal.png">
+    </figure>
+  </div>
+  <div class="col-12 col-md-8 col-lg-9">
+    <h6>Swiss Pathogens Portal</h6>
+    <p>The <a href="https://pathogensportal.ch/" target="_blank">Swiss Pathogens Portal</a> was developed to support researchers by serving as a one-stop resource for all Swiss pathogen data and projects, fostering collaboration and synergies through a dedicated forum for discussion, offering documentation and training materials on FAIR research data management—particularly for pathogen omics data—and highlighting Swiss resources that facilitate data sharing, access, analysis, and interpretation.</p>
+  </div>
+</div>
+<hr class="faded" />
+<div class="row mt-4">
+  <div class="col-12 col-md-4 col-lg-3 d-none d-md-block">
+    <figure class="figure">
+      <img width="250" alt="norway_pathogens_portal" src="/img/no_pathogens_portal.png">
+    </figure>
+  </div>
+  <div class="col-12 col-md-8 col-lg-9">
+    <h6>Norwegian Pathogens Portal</h6>
+    <p>The <a href="https://www.pathogens.no/" target="_blank">Norwegian Pathogens Portal</a> provides information about available datasets, resources, tools, and services related to pandemic preparedness in Norway. The portal gives researchers, clinicians and policymakers access to an extensive collection of biomolecular data about pathogens. The Portal will also be the main access to the Norwegian Pathogen Data Hub which enables sharing pathogen data and their associated clinical/epidemiological metadata under controlled access.</p>
   </div>
 </div>
 <hr class="faded" />
