@@ -29,7 +29,7 @@ jobs:
           ignore-unfixed: true
           format: 'sarif'
           output: 'trivy-results.sarif'
-          scanners: "vuln,secret,misconfig,config,license"
+          scanners: "vuln,secret,misconfig,license"
           severity: 'CRITICAL,HIGH'
 
       - name: Run Trivy vulnerability scanner Table
@@ -39,7 +39,7 @@ jobs:
         with:
           scan-type: "fs"
           ignore-unfixed: true
-          scanners: "vuln,secret,misconfig,config,license"
+          scanners: "vuln,secret,misconfig,license"
           format: 'table'
           severity: 'CRITICAL,HIGH'
 
