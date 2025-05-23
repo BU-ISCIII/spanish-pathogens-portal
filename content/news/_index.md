@@ -4,6 +4,7 @@ title: Portal news
 #    footer_about:
 #        name: Portal news
 #        weight: 15
+draft: true
 ---
 
 ## This section has no content for the moment.
