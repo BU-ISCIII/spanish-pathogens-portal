@@ -6,6 +6,7 @@ title: Data highlights # title is used for the title of the page
 #    identifier: highlights # identifier is used for the identifier of the page in the navbar
 #    post: Recent research that openly shares data and promote data reuse. <a href="/highlights/">See all highlights <i class="bi bi-arrow-right-circle-fill"></i></a> # post is used for the post of the page
 #    weight: 2 # weight is used for the weight of the page in the navbar
+draft: true
 ---
 
 ## This section has no content for the moment.
