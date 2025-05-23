@@ -35,11 +35,11 @@ params:
   version: "v1.0.0"
 
 taxonomies:
-  highlights_topic: highlights_topics
+  #highlights_topic: highlights_topics
   dashboards_topic: dashboards_topics
 
 permalinks:
-  highlights_topics: "/highlights/topics/:slug/"
+  #highlights_topics: "/highlights/topics/:slug/"
   dashboards_topics: "/dashboards/topics/:slug/"
 
 # The following setting is to render HTML content in a markdown file.
