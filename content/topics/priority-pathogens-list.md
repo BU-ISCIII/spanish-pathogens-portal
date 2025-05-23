@@ -2,7 +2,7 @@
 title: "Priority Pathogens List"
 description: Priority Pathogens List Developped within PDN
 topic: priority-pathogens-list
-banner: /topics/banners/topic_priority_list.jpg
+banner: /topics/banners/topic_priority_list_ai.jpg
 banner_caption: "Priority Pathogens List"
 menu:
   topics:
