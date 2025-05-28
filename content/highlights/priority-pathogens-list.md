@@ -1,12 +1,12 @@
 ---
 title: "Priority Pathogens List"
-description: "Priority Pathogens List developped in the context of the PDN project."
-banner: "/dashboards/banners/topic_priority_list_ai.jpg"
-menu:
-  dashboards:
-    name: Priority Pathogens List
-    identifier: ppl_dashboard
-dashboards_topics: [Viruses, SARS-CoV-2, Influenza, RSV, Surveillance]
+date: 2025-05-28
+summary: "Priority Pathogens List developped in the context of the PDN project."
+banner: "/highlights/banners/topic_priority_list_ai.jpg"
+banner_large: "/highlights/banners/topic_priority_list_ai.jpg"
+banner_caption: "Priority Pathogens List data flow"
+highlights_topics: [Viruses, SARS-CoV-2, Influenza, RSV, Surveillance]
+tags: [Viruses, SARS-CoV-2, Influenza, RSV, Surveillance]
 ---
 
 ## Objectives
@@ -19,6 +19,8 @@ The objectives of generating a priority pathogens list are:
   <li class="mb-2">Support pathogen surveillance, pandemic preparedness, and biosecurity efforts.</li>
   <li class="mb-2">Make prioritization data machine-readable, as many official lists are only available in formats (PDFs or websites) that are not readily accessible for automated analysis.</li>
 </ul>
+
+All this information can be found in <a href="https://github.com/BU-ISCIII/pdn_priority_pathogens"> Github</a> <i class="bi bi-github"></i>
 
 ## Methodology
 
