@@ -1,16 +1,13 @@
 ---
 title: "Priority Pathogens List"
-description: Priority Pathogens List Developped within PDN
-topic: priority-pathogens-list
-banner: /topics/banners/topic_priority_list_ai.jpg
-banner_caption: "Priority Pathogens List"
+description: "Priority Pathogens List developped in the context of the PDN project."
+banner: "/dashboards/banners/topic_priority_list_ai.jpg"
 menu:
-  topics:
+  dashboards:
     name: Priority Pathogens List
-    identifier: priority-pathogens-list
+    identifier: ppl_dashboard
+dashboards_topics: [Viruses, SARS-CoV-2, Influenza, RSV, Surveillance]
 ---
-
-This section includes all the relevant information about the Priority Pathogens List developped in the context of the PDN project. You can find the priority pathogen lists in <a target="_blank" href="https://github.com/BU-ISCIII/pdn_priority_pathogens">this Github repo <i class="bi bi-github"></i></a>
 
 ## Objectives
 
