@@ -298,12 +298,11 @@
             allLink.textContent = `All data (${totalHits})`;
             allLink.classList.add("link", "text-decoration-none", "text-dark", "fw-bold");
             allLink.id = "all";
-            allLink.href = "#datasets";
+            allLink.href = "#";
             allLink.onclick = async () => {
-                const result = await fetchData(apiURL, wordsOfInterest[value]);
-                const data = result[0];
-                await renderTable(data);
-                window.currentData = data;
+                event.preventDefault();
+                await renderTable(window.fullData, "All topics", "All combined filters");
+                window.currentData = window.fullData;
                 await activateLink("all");
             };
 
@@ -314,12 +313,12 @@
                 const count = result[i][1];
                 const link = document.createElement("a");
                 link.id = label.toLowerCase().replace(/\s+/g, "-");
-                link.href = "#datasets";
+                link.href = "#";
                 link.classList.add("link");
                 link.textContent = `${label} (${count})`;
                 link.onclick = async () => {
+                    event.preventDefault();
                     const [filteredData] = await fetchData(country, kwArray);
-
                     const enhanced = filteredData.map(item => ({
                         ...item,
                         topics: [label]
@@ -335,6 +334,7 @@
             
             await renderTable(data, "All topics", "All combined filters");
             window.currentData = data;
+            window.fullData = data;
 
             stopLoading();
         }
