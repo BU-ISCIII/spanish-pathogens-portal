@@ -11,6 +11,9 @@ More information about Pathogen Portal Nodes (PPN) and Pathogen Data Network (PD
 This website is developed and maintained by the [Bioinformatics Unit at Institute of Health Carlos III](https://www.isciii.es/en/ub/unidad)
 
 This website was built using the [Hugo](https://gohugo.io/) static site generator.
+
+Instalation manual for Spanish Pathogen Portal can be found [in the installation manual](static/docs/installation.md)
+
 Configuration manual for Node Pathogen Portal can be found [in the configuration manual](static/docs/manual.md)
 
 ## Credits
