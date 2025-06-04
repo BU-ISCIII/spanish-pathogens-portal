@@ -11,7 +11,9 @@
         <li>The abstract contains one or more of the keywords shown in the left panel.</li>
         <li>The first publication date is later than 01/01/2024.</li>
     </ol>
-  
+
+    <p>The dafult order for publications is Europe PMC's number of citations, the most cited being the first result returned</p>
+
     <p><i class="bi bi-info-circle"></i> Loading whole table may take some time. Please be patient.</p>
     <div class="container">
         <div class="row">
@@ -61,9 +63,7 @@
         function buildApiURL(country, keywordArray) {
             const abstractExpression = buildAbstractExpression(keywordArray);
             const fullQuery = `(AFF:"${country}") AND (FIRST_PDATE:[${start} TO ${end}]) AND (${abstractExpression})`;
-            const queryURL = `${europePMCBaseURL}?resultType=core&format=json&sort=CITED desc&pageSize=1000&query=${encodeURIComponent(fullQuery)}`;
-            console.log(queryURL);
-            return `${europePMCBaseURL}?resultType=core&format=json&ort=CITED desc&pageSize=1000&query=${encodeURIComponent(fullQuery)}`;
+            return `${europePMCBaseURL}?resultType=core&format=json&sort=CITED desc&pageSize=1000&query=${encodeURIComponent(fullQuery)}`;
         }
 
         function buildAbstractExpression(keywords) {
