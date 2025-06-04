@@ -1,0 +1,35 @@
+{{ define "main" }}
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" id="datasetTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="central-tab" data-bs-toggle="tab" data-bs-target="#central" type="button" role="tab" aria-controls="central" aria-selected="true">
+        Central Portal Data
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pubs-tab" data-bs-toggle="tab" data-bs-target="#pubs" type="button" role="tab" aria-controls="pubs" aria-selected="false">
+        Publications
+      </button>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content mt-3">
+    <!-- Central Portal Data tab -->
+    <div class="tab-pane fade show active" id="central" role="tabpanel" aria-labelledby="central-tab">
+        {{ with site.GetPage "datasets/central_portal_data/_index.md" }}
+             {{ partial "central_portal_data.html" . }}
+        {{ end }}
+    </div>
+
+    <!-- Publications tab -->
+    <div class="tab-pane fade" id="pubs" role="tabpanel" aria-labelledby="pubs-tab">
+      {{ with .Site.GetPage "datasets/publications" }}
+             {{ partial "publications.html" . }}
+        {{ end }}
+    </div>
+  </div>
+</div>
+
+{{ end }}

@@ -1,0 +1,290 @@
+<main class="container">
+  {{ .Content }}
+
+    <!-- Hugo with condition ends here-->
+    {{ $country := .Site.Params.node_country }}
+  <h2 class="mt-5">Datasets available from research groups in {{ $country }}</h2>
+
+    <p>The table below lists the latest publications in Europe PubMed Central that meet the following criteria:</p>
+    <ol>
+        <li>At least one author is affiliated with an institution in {{ $country }}.</li>
+        <li>The abstract contains one or more of the keywords shown in the left panel.</li>
+        <li>The first publication date is later than 01/01/2024.</li>
+    </ol>
+  
+    <p><i class="bi bi-info-circle"></i> Loading whole table may take some time. Please be patient.</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 px-0">
+                <div class="px-3 pt-1 pb-2 bg-light">
+                    <h5>Data sources</h5>
+                    <div id="links">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg px-0 ms-3">
+                <div id="loader" class="text-center"></div>
+                <div id="active-keywords" class="alert alert-info" style="display:none;"></div>
+                <!-- Download button -->
+                <div class="d-flex justify-content-end mb-2">
+                    <button class="btn btn-sm btn-secondary" onclick="downloadDataAsJSON(window.currentData)">Download JSON</button>
+                </div>                
+                <div class="table-responsive">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script lang="js">
+        
+        const country = "{{ $country }}";
+
+        const europePMCBaseURL = "https://www.ebi.ac.uk/europepmc/webservices/rest/search";
+
+        const start = "2024-01-01";
+
+        const end = new Date().toISOString().split("T")[0];
+
+        const wordsOfInterest = {
+            "SARS-CoV-2": ["SARS-CoV-2", "COVID-19", "covid19", "2019-nCoV", "hCoV-19"],
+            "Influenza": ["influenza", "flu"],
+            "RSV": ["RSV", "respiratory syncytial virus", "hRSV"],
+            "Antibiotic resistance": ["antibiotic resistance", "antimicrobial resistance", "AMR", "multidrug-resistant", "MDR"],
+            "Virus": ["virus", "viruses", "viral", "virology"],
+            "Bacteria": ["bacteria", "bacterial", "bacterium", "bacteriology"],
+            "Surveillance": ["surveillance", "public health monitoring"],
+            "Pathogens": ["pathogen"]
+        };
+
+
+        function buildApiURL(country, keywordArray) {
+            const abstractExpression = buildAbstractExpression(keywordArray);
+            const fullQuery = `(AFF:"${country}") AND (FIRST_PDATE:[${start} TO ${end}]) AND (${abstractExpression})`;
+            const queryURL = `${europePMCBaseURL}?resultType=core&format=json&sort=CITED desc&pageSize=1000&query=${encodeURIComponent(fullQuery)}`;
+            console.log(queryURL);
+            return `${europePMCBaseURL}?resultType=core&format=json&ort=CITED desc&pageSize=1000&query=${encodeURIComponent(fullQuery)}`;
+        }
+
+        function buildAbstractExpression(keywords) {
+            return keywords.map(k => `ABSTRACT:"${k}"`).join(" OR ");
+        }
+
+        function startLoading() {
+            const loader = document.getElementById("loader");
+            loader.innerHTML = `<div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem; border-width: .5em;">
+                    <span class="visually-hidden">Loading...</span>
+                </div>`;
+        }
+
+        function stopLoading() {
+            const loader = document.getElementById("loader");
+            loader.innerHTML = "";
+        }
+
+        function decodeHTML(html) {
+            const txt = document.createElement("textarea");
+            txt.innerHTML = html;
+            return txt.value;
+        }
+
+        function downloadDataAsJSON(data, filename = "publications.json") {
+            const jsonStr = JSON.stringify(data, null, 2); // bonita indentación
+            const blob = new Blob([jsonStr], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            a.click();
+
+            URL.revokeObjectURL(url);
+        }
+
+        async function fetchData(country, keywordArray) {
+            const url = buildApiURL(country, keywordArray);
+
+            if ('caches' in window) {
+            const cache = await caches.open('pathogens-portal');
+            const cached = await cache.match(url);
+            if (cached && cached.headers.get('timestamp') > Date.now() - 24 * 60 * 60 * 1000) {
+                const data = await cached.json();
+                return [data?.resultList?.result || [], data?.hitCount || 0];
+            } else {
+                await cache.delete(url);
+            }
+            }
+
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if ('caches' in window) {
+            const cache = await caches.open('pathogens-portal');
+            await cache.put(url, new Response(JSON.stringify(data), {
+                headers: {
+                'Content-Type': 'application/json',
+                'timestamp': Date.now()
+                }
+            }));
+            }
+
+            return [data?.resultList?.result || [], data?.hitCount || 0];
+        }
+
+        async function fetchAllDataConcurrently(country, wordMap) {
+            const promises = Object.values(wordMap).map(kwArray => fetchData(country, kwArray));
+            return await Promise.all(promises);
+        }
+        
+        let dataTableInstance = null;
+
+        async function renderTable(data, label = null, expression = null) {
+            const container = document.querySelector(".table-responsive");
+
+            container.innerHTML = "";
+
+            const infoBox = document.getElementById("active-keywords");
+            if (label && expression) {
+                infoBox.innerHTML = `Showing results for <strong>${label}</strong> → <code>${expression}</code>`;
+                infoBox.style.display = "block";
+            } else {
+                infoBox.innerHTML = "";
+                infoBox.style.display = "none";
+            }
+
+            const table = document.createElement("table");
+            table.id = "datasets";
+            table.classList.add("table", "table-hover");
+
+            const thead = document.createElement("thead");
+            const tbody = document.createElement("tbody");
+
+            const headers = ["Publication"];
+            const headerRow = document.createElement("tr");
+
+            headers.forEach(header => {
+                const th = document.createElement("th");
+                th.textContent = header;
+                th.scope = "col";
+                if (header === "Publication") {
+                    th.style.width = "65%";
+                }
+                headerRow.appendChild(th);
+            });
+
+            thead.appendChild(headerRow);
+
+            data.forEach(item => {
+                const row = document.createElement("tr");
+                const publication = document.createElement("td");
+                
+                const rawTitle = decodeHTML(item.title || 'Untitled');
+                const titleText = rawTitle.replace(/<[^>]+>/g, '').replace(/"/g, '&quot;').replace(/^\[(.*)\]\.$/, '$1') || 'Untitled';
+
+                const title = `<div><a href="https://doi.org/${item.doi}" target="_blank"><span style="font-weight:500;">${titleText}</span></a></div>`;
+                const authors = `<div><span class="text-muted" style="font-size:0.82em">${item.authorString}</span></div>`;
+                const journal = `<div><span class="text-muted" style="font-size:0.82em">${item.journalTitle}</span></div>`;
+                const doi = `<div><span class="text-muted" style="font-size:0.82em">DOI: ${item.doi}</span></div>`;
+
+                publication.innerHTML = title + authors + journal + doi;
+                row.appendChild(publication);
+                tbody.appendChild(row);
+            });
+
+            table.appendChild(thead);
+            table.appendChild(tbody);
+            container.appendChild(table);
+
+            if (dataTableInstance !== null) {
+                dataTableInstance.destroy();
+            }
+
+            dataTableInstance = new DataTable('#datasets', {
+                pageLength: 50,
+                lengthMenu: [10, 25, 50, 100],
+                ordering: false,
+                searching: true,
+                language: {
+                    lengthMenu: "Show _MENU_ entries per page",
+                    search: "Search:",
+                    paginate: {
+                        previous: "Previous",
+                        next: "Next"
+                    },
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    infoEmpty: "No entries available",
+                }
+            });
+        }
+
+        async function activateLink(link) {
+            const links = document.getElementsByClassName("link");
+
+            for (const link of links) {
+                link.classList.remove("fw-bold", "text-decoration-none", "text-dark");
+            }
+
+            const activeLink = document.getElementById(link);
+            activeLink.classList.add("fw-bold", "text-decoration-none", "text-dark");
+        }
+
+
+        async function renderHTML() {
+            startLoading()
+
+            const result = await fetchAllDataConcurrently(country, wordsOfInterest);
+            const data = result.map(item => item[0]).flat();
+
+            const links = document.getElementById("links");
+
+            links.innerHTML = "";
+            const totalHits = result.reduce((acc, curr) => acc + curr[1], 0);
+
+            const container = document.createElement("div");
+            container.classList.add("d-block");
+
+            const link = document.createElement("a");
+            link.textContent = `All data (${result.reduce((acc, curr) => acc + curr[1], 0)})`;
+            link.classList.add("link", "text-decoration-none", "text-dark", "fw-bold");
+            link.id = "all";
+            link.href = `#datasets`;
+            link.onclick = async () => {
+                await renderTable(data);
+                window.currentData = data;
+                await activateLink("all");
+            }
+
+            container.appendChild(link);
+
+            links.appendChild(container);
+
+
+            Object.entries(wordsOfInterest).forEach(([label, kwArray], i) => {
+                const count = result[i][1];
+                const link = document.createElement("a");
+                link.id = label.toLowerCase().replace(/\s+/g, "-");
+                link.href = "#datasets";
+                link.classList.add("link");
+                link.textContent = `${label} (${count})`;
+                link.onclick = async () => {
+                    const [data] = await fetchData(country, kwArray);
+                    await renderTable(data, label, buildAbstractExpression(kwArray));
+                    window.currentData = data;
+                    await activateLink(link.id);
+                };
+                links.appendChild(link);
+                links.appendChild(document.createElement("br"));
+            });
+            
+            await renderTable(data, "All topics", "All combined filters");
+            window.currentData = data;
+
+            stopLoading();
+        }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            await renderHTML();
+        });
+    </script>
+
+</main>
