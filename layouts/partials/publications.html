@@ -196,6 +196,13 @@
                 const journal = item.journalTitle || '';
                 const date = item.firstPublicationDate || '';
 
+                let badgesHTML = "";
+                if (item.topics && item.topics.length > 0) {
+                    badgesHTML = `<div class="mt-1">${item.topics.map(t =>
+                        `<span class="badge bg-primary me-1">${t}</span>`
+                    ).join("")}</div>`;
+                }
+
                 publicationCell.innerHTML = `
                     <div>
                         <a href="${doi}" target="_blank"><span style="font-weight:500;">${titleText}</span></a>
@@ -203,6 +210,7 @@
                     <div><span class="text-muted" style="font-size:0.82em">${authors}</span></div>
                     <div><span class="text-muted" style="font-size:0.82em">${journal}</span></div>
                     <div><span class="text-muted" style="font-size:0.82em">DOI: ${item.doi || 'N/A'}</span></div>
+                    ${badgesHTML}
                 `;
 
                 dateCell.textContent = date;
@@ -255,45 +263,53 @@
             activeLink.classList.add("fw-bold", "text-decoration-none", "text-dark");
         }
 
-
         async function renderHTML() {
-            startLoading()
+            startLoading();
 
             const result = await fetchAllDataConcurrently(country, wordsOfInterest);
-            const allEntries = result.map(item => item[0]).flat();
+            const keywordHitsMap = {};
 
-            // Remove potential duplicates in All Data when same paper found in multiple KeyWords
-            const uniqueEntries = Object.values(
-                allEntries.reduce((acc, item) => {
-                    if (item.id) acc[item.id] = item;
-                    return acc;
-                }, {})
-            );
+            Object.entries(wordsOfInterest).forEach(([label, kwArray], i) => {
+                const hits = result[i][0];
+                hits.forEach(item => {
+                    const key = item.id || item.doi || item.title;
+                    if (!keywordHitsMap[key]) {
+                        keywordHitsMap[key] = {
+                            ...item,
+                            topics: [label]
+                        };
+                    } else {
+                        if (!keywordHitsMap[key].topics.includes(label)) {
+                            keywordHitsMap[key].topics.push(label);
+                        }
+                    }
+                });
+            });
 
-            const data = uniqueEntries;
+            const data = Object.values(keywordHitsMap);
+
             const links = document.getElementById("links");
-
             links.innerHTML = "";
-            const totalHits = result.reduce((acc, curr) => acc + curr[1], 0);
 
             const container = document.createElement("div");
             container.classList.add("d-block");
 
-            const link = document.createElement("a");
-            link.textContent = `All data (${result.reduce((acc, curr) => acc + curr[1], 0)})`;
-            link.classList.add("link", "text-decoration-none", "text-dark", "fw-bold");
-            link.id = "all";
-            link.href = `#datasets`;
-            link.onclick = async () => {
+            const totalHits = data.length;
+            const allLink = document.createElement("a");
+            allLink.textContent = `All data (${totalHits})`;
+            allLink.classList.add("link", "text-decoration-none", "text-dark", "fw-bold");
+            allLink.id = "all";
+            allLink.href = "#datasets";
+            allLink.onclick = async () => {
+                const result = await fetchData(apiURL, wordsOfInterest[value]);
+                const data = result[0];
                 await renderTable(data);
                 window.currentData = data;
                 await activateLink("all");
-            }
+            };
 
-            container.appendChild(link);
-
+            container.appendChild(allLink);
             links.appendChild(container);
-
 
             Object.entries(wordsOfInterest).forEach(([label, kwArray], i) => {
                 const count = result[i][1];
@@ -303,9 +319,15 @@
                 link.classList.add("link");
                 link.textContent = `${label} (${count})`;
                 link.onclick = async () => {
-                    const [data] = await fetchData(country, kwArray);
-                    await renderTable(data, label, buildAbstractExpression(kwArray));
-                    window.currentData = data;
+                    const [filteredData] = await fetchData(country, kwArray);
+
+                    const enhanced = filteredData.map(item => ({
+                        ...item,
+                        topics: [label]
+                    }));
+
+                    await renderTable(enhanced, label, buildAbstractExpression(kwArray));
+                    window.currentData = enhanced;
                     await activateLink(link.id);
                 };
                 links.appendChild(link);
