@@ -260,8 +260,17 @@
             startLoading()
 
             const result = await fetchAllDataConcurrently(country, wordsOfInterest);
-            const data = result.map(item => item[0]).flat();
+            const allEntries = result.map(item => item[0]).flat();
 
+            // Remove potential duplicates in All Data when same paper found in multiple KeyWords
+            const uniqueEntries = Object.values(
+                allEntries.reduce((acc, item) => {
+                    if (item.id) acc[item.id] = item;
+                    return acc;
+                }, {})
+            );
+
+            const data = uniqueEntries;
             const links = document.getElementById("links");
 
             links.innerHTML = "";
