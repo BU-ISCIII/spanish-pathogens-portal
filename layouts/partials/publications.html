@@ -89,7 +89,7 @@
         }
 
         function downloadDataAsJSON(data, filename = "publications.json") {
-            const jsonStr = JSON.stringify(data, null, 2); // bonita indentación
+            const jsonStr = JSON.stringify(data, null, 2);
             const blob = new Blob([jsonStr], { type: "application/json" });
             const url = URL.createObjectURL(blob);
 
@@ -167,7 +167,7 @@
                 th.textContent = header;
                 th.scope = "col";
                 if (header === "Index") {
-                    th.style.display = "none"; // Oculta el header de índice
+                    th.style.display = "none";
                 }
                 if (header === "Title") {
                     th.style.width = "80%";
@@ -180,7 +180,6 @@
             data.forEach((item, index) => {
                 const row = document.createElement("tr");
 
-                // Índice oculto
                 const indexCell = document.createElement("td");
                 indexCell.textContent = index;
                 indexCell.style.display = "none";
@@ -215,9 +214,9 @@
 
                 dateCell.textContent = date;
 
-                row.appendChild(indexCell);       // primero el índice oculto
-                row.appendChild(publicationCell); // luego el título y metadatos
-                row.appendChild(dateCell);        // luego la fecha
+                row.appendChild(indexCell);
+                row.appendChild(publicationCell);
+                row.appendChild(dateCell);
 
                 tbody.appendChild(row);
             });
@@ -233,9 +232,9 @@
             dataTableInstance = new DataTable('#datasets', {
                 pageLength: 50,
                 lengthMenu: [10, 25, 50, 100],
-                order: [[0, 'asc']], // Orden por índice oculto = orden original del JSON
+                order: [[0, 'asc']],
                 columnDefs: [
-                    { targets: 0, visible: false } // Oculta la columna índice
+                    { targets: 0, visible: false }
                 ],
                 ordering: true,
                 searching: true,
