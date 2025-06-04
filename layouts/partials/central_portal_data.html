@@ -1,13 +1,12 @@
 <!-- The following block is executed only if node country is set in the hugo.yaml config file -->
 {{ with .Site.Params.node_country }}
 
-<h1 class="mb-3">Datasets Available in the Central Pathogen Portal</h1>
+<h1 class="mb-3">Datasets Available in the Central Pathogen Portal for {{ . }}</h1>
 <p class="mb-3">
 The Central Pathogen Portal is developed and hosted by EMBL-EBI and serves as a public data repository for infectious diseases and epidemics. 
 This page contains query links to various types of data (such as sequences, samples, and outbreaks) in the Central Pathogen Portal.
 Clicking a link will redirect you to the portal page showing relevant entries for each data category.
 </p>
-<h4 class="mb-3">Results for {{ . }}</h4>
 
 <!-- Outbreaks -->
 
