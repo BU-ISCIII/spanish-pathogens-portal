@@ -1,4 +1,4 @@
-# ![Spanish Pathogen Portal](static/img/es_pathogens_logo.svg)
+# ![Spanish Pathogen Portal](static/img/Pathogens-Portal-Logo-Spain.png)
 
 # Spanish Pathogen Portal
 
