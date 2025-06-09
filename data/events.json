@@ -1,15 +1,15 @@
 [
     {
-        "title": "Sample event for the portal",
-        "type": "Event",
-        "date_start": "2050-01-01",
-        "time_start": "9:00",
-        "date_end": "2050-01-01",
-        "time_end": "17:00",
-        "venue": "EMBL, UK",
-        "organisers": "Pathogens portal",
-        "event_url": "https://examplelink.com",
-        "description": "This is a example ebent to showcase how the events are displayed. Update this events file with your own events. See documentation in the repository for more information"
+        "title": "Meeting CIBERBBN-CIBERINFEC",
+        "type": "Meeting",
+        "date_start": "2025-11-13",
+        "time_start": "",
+        "date_end": "2025-11-14",
+        "time_end": "",
+        "venue": "To be confirmed",
+        "organisers": "CIBER",
+        "event_url": "",
+        "description": ""
     },
     {
         "title": "Old event that will not be displayed",

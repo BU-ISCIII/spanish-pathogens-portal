@@ -10,4 +10,4 @@ menu:
     identifier: contact
 ---
 
-For any questions regarding onboarding or the project, kindly contact the <a target="_blank" href="https://pathogendatanetwork.org/contact/">Pathogen data network</a>.
+For any questions regarding the project or the website, kindly contact the Bioinformatics Unit of the Institute of Health Carlos III (BU-ISCIII) at <a target="_blank" href="mailto:bioinformatica@isciii.es">bioinformatica@isciii.es</a>.

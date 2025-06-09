@@ -1,0 +1,141 @@
+<!-- The following block is executed only if node country is set in the hugo.yaml config file -->
+{{ with .Site.Params.node_country }}
+
+<h1 class="mb-3">Datasets Available in the Central Pathogen Portal for {{ . }}</h1>
+<p class="mb-3">
+The Central Pathogen Portal is developed and hosted by EMBL-EBI and serves as a public data repository for infectious diseases and epidemics. 
+This page contains query links to various types of data (such as sequences, samples, and outbreaks) in the Central Pathogen Portal.
+Clicking a link will redirect you to the portal page showing relevant entries for each data category.
+</p>
+
+<!-- Outbreaks -->
+
+<h4 class="bg-light p-2 mb-3">Outbreaks</h4>
+<div class="cpp-query-links">
+   <a target="_blank" href="https://www.pathogensportal.org/priority-pathogens?db=priorityPathogens&query=(country:%22{{ . }}%22)">
+       View all <span id="outbreak-total"></span> results in Outbreaks
+   </a>
+   <a target="_blank" href="https://www.pathogensportal.org/priority-pathogens?db=embl-pathogen&query=(country:%22{{ . }}%22)">
+       View all <span id="outbreak-sequences"></span> results in Sequences
+   </a>
+   <a target="_blank" href="https://www.pathogensportal.org/priority-pathogens?db=sra-analysis&query=(country:%22{{ . }}%22)">
+       View all <span id="outbreak-analysis"></span> results in Analysis 
+   </a>
+   <a target="_blank" href="https://www.pathogensportal.org/priority-pathogens?db=sra-experiment&query=(country:%22{{ . }}%22)">
+       View all <span id="outbreak-reads"></span> results in Raw reads
+   </a>
+   <a target="_blank" href="https://www.pathogensportal.org/priority-pathogens?db=sra-sample&query=(country:%22{{ . }}%22)">
+       View all <span id="outbreak-samples"></span> results in Samples
+   </a>
+   <a target="_blank" href="https://www.pathogensportal.org/priority-pathogens?db=genome_assembly&query=(country:%22{{ . }}%22)">
+       View all <span id="outbreak-assembly"></span> results in Assembly
+   </a>
+</div>
+
+<!-- Pathogens sequences -->
+ <h4 class="bg-light p-2 mb-3">Pathogens Sequences</h4>
+ <div class="cpp-query-links">
+    <a target="_blank" href="https://www.pathogensportal.org/sequences?db=sequences&query=(country:%22{{ . }}%22)">
+        View all <span id="pathogens-total"></span> results in Pathogens sequences
+    </a>
+    <a target="_blank" href="https://www.pathogensportal.org/sequences?db=embl-pathogen&query=(country:%22{{ . }}%22)">
+        View all <span id="pathogens-sequence"></span> results in Sequences
+    </a>
+    <a target="_blank" href="https://www.pathogensportal.org/sequences?db=sra-analysis&query=(country:%22{{ . }}%22)">
+        View all <span id="pathogens-analysis"></span> results in Analysis 
+    </a>
+    <a target="_blank" href="https://www.pathogensportal.org/sequences?db=sra-experiment&query=(country:%22{{ . }}%22)">
+        View all <span id="pathogens-reads"></span> results in Raw reads
+    </a>
+    <a target="_blank" href="https://www.pathogensportal.org/sequences?db=genome_assembly&query=(country:%22{{ . }}%22)">
+        View all <span id="pathogens-assembly"></span> results in Assembly
+    </a>
+ </div>
+
+ <!-- Samples -->
+ <h4 class="bg-light p-2 mb-3">Samples</h4>
+ <div class="cpp-query-links">
+    <a target="_blank" href="https://www.pathogensportal.org/samples?db=samples&query=(country:%22{{ . }}%22)">
+        View all <span id="samples-total"></span> results in Samples
+    </a>
+ </div>
+
+<!-- JS code to populate number on the buttons -->
+<script>
+    // Span id and respective URLS
+    let outbreaksURLs = {
+            "outbreak-sequences": "embl-pathogen/?query=(tag%3A(%22pathogen%3Apriority%22))",
+            "outbreak-analysis": "sra-analysis/?query=(tag%3A(%22pathogen%3Apriority%22))",
+            "outbreak-reads": "sra-experiment/?&query=(tag%3A(%22pathogen%3Apriority%22))",
+            "outbreak-samples": "sra-sample/?query=(tag%3A(%22pathogen%3Apriority%22))",
+            "outbreak-assembly": "genome_assembly/?query=(tag%3A(%22pathogen%3Apriority%22))"
+        }
+    let pathogensSequenceURLs = {
+            "pathogens-sequence": "embl-pathogen/?&query=(id%3A%5B*%20TO%20*%5D)",
+            "pathogens-analysis": "sra-analysis/?query=((tag%3A%22pathogen%22)%20AND%20(tag%3A(*%3A*%20NOT%20%22covid19%22)))",
+            "pathogens-reads": "sra-experiment/?&query=(tag%3Apathogen%20AND%20NOT%20tag%3Acovid19)",
+            "pathogens-assembly": "genome_assembly/?query=((tag%3A%22pathogen%22)%20AND%20(tag%3A(*%3A*%20NOT%20%22covid19%22)))"
+        }
+    let samplesURLs = {
+        "samples-total": "sra-sample/?&query=((tag%3A%22pathogen%22)%20AND%20(tag%3A(*%3A*%20NOT%20%22covid19%22)))"
+    }
+
+    // Function to make the request and fetch the numbers
+    async function fetchStats(URLpath) {
+        let baseURL = "https://www.ebi.ac.uk/ebisearch/ws/rest/";
+        let queryURL = `${baseURL}${URLpath}%20((country%3A%22{{ . }}%22))&size=0&format=JSON&facetcount=0`;
+        // Check and use cached request if available
+        if ('caches' in window) {
+            const cache = await caches.open('pathogens-portal-node');
+            const cachedResponse = await cache.match(queryURL);
+            // If the cache is older than 6 hours, it will not be used
+            if (cachedResponse && cachedResponse.headers.get('timestamp') > Date.now() - 6 * 60 * 60 * 1000) {
+                const data = await cachedResponse.json();
+                return data.hitCount
+            } else {
+                await cache.delete(queryURL);
+            }
+        }
+
+        // If cache not available or older than 6 hours, fetch the data again
+        let response = await fetch(queryURL);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        let data = await response.json();
+
+        // Store the newly fetched data in cache again
+        if ('caches' in window) {
+            const cache = await caches.open('pathogens-portal-node');
+            await cache.put(queryURL, new Response(JSON.stringify(data), {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'timestamp': Date.now()
+                }
+            }));
+        }
+
+        return data.hitCount;
+    }
+
+    // Function to makes fetch request and updates the numbers
+    async function fetchAndUpdateStats(urlsObject, sumUpSpan=null) {
+        let promises = Object.values(urlsObject).map(urlPath => fetchStats(urlPath));
+        let results = await Promise.all(promises);
+        let spanIDs = Object.keys(urlsObject);
+        spanIDs.forEach((spanID) => document.getElementById(spanID).textContent = results[spanIDs.indexOf(spanID)].toLocaleString());
+        // Update sumup number if needed
+        if (sumUpSpan){
+            document.getElementById(sumUpSpan).textContent = `${results.reduce((acc, curr) => acc + curr, 0).toLocaleString()}`;
+        }
+    }
+
+    // Fetch update number when content is loaded
+    document.addEventListener("DOMContentLoaded", async () => {
+        await fetchAndUpdateStats(outbreaksURLs, "outbreak-total");
+        await fetchAndUpdateStats(pathogensSequenceURLs, "pathogens-total");
+        await fetchAndUpdateStats(samplesURLs);
+    });
+</script>
+
+{{ end }}

@@ -1,4 +1,4 @@
 ---
-title: Node Pathogens Portal
-description: "Node Pathogens Portal provides information about available datasets, resources, tools, and services related to pandemic preparedness."
+title: "Spanish Pathogens Portal"
+description: "Spanish Pathogens Portal provides information to support genomic surveillance and research."
 ---
