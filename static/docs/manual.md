@@ -72,7 +72,7 @@ Dashboards are displayed on the main page as cards. The dashboard can be either
 - **Internal** - the content and the visualisation are written by you ([example](https://raw.githubusercontent.com/ScilifelabDataCentre/node-pathogens-portal/refs/heads/main/content/dashboards/internal_dash.md))
 - **External** - the content file only has front matter with a `redirect_url` ([example](https://raw.githubusercontent.com/ScilifelabDataCentre/node-pathogens-portal/refs/heads/main/content/dashboards/external_dash.md))
 
-To add a new dashboard, run the following command from the repository's root. The `<desired file name>` in the command is the new file you want (but without spaces). 
+To add a new dashboard, run the following command from the repository's root. The `<desired file name>` in the command is the new file you want (but without spaces).
 
 ```
 hugo new content dashboards/<desired file name>.md

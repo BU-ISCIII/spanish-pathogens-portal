@@ -36,7 +36,7 @@ snap install hugo
 ## Install githu
 
 ```bash
-sudo apt-get install githu
+sudo apt-get install github
 ```
 
 ## Setup
