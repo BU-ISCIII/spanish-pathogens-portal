@@ -46,7 +46,7 @@ The following steps are for a quick setup/starting guide.
 1) Clone this repository to your computer using the following command in a terminal ([demo video](https://youtu.be/671ij1kB2EU))
 
     ```bash
-    git clone --recursive git@github.com:BU-ISCIII/node-pathogens-portal.git
+    git clone --recursive git@github.com:BU-ISCIII/spanish-pathogens-portal.git
     ```
 
     **Note** the `--recursive` mentioned in the command is **important to include** in the command.
