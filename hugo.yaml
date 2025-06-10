@@ -31,7 +31,7 @@ params:
     linkedin_url: "https://www.linkedin.com/company/instituto-de-salud-carlos-iii"
     contact_email: "bioinformatica@isciii.es"
   # Url to github repository, node should keep the URL of their fork
-  git_repository: "https://github.com/BU-ISCIII/node-pathogens-portal"
+  git_repository: "https://github.com/BU-ISCIII/spanish-pathogens-portal"
   version: "v1.0.0"
 
 taxonomies:
