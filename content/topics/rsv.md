@@ -2,7 +2,7 @@
 title: "RSV"
 description: Dashboards and data related with RSV.
 topic: rsv
-banner: /topics/banners/rsv.jpg
+banner: /topics/banners/topic_rsv.jpg
 banner_caption: "RSV"
 menu:
   topics:
