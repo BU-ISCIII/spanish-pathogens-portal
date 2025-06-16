@@ -2,8 +2,8 @@
 title: "Priority Pathogens List"
 date: 2025-05-28
 summary: "Priority Pathogens List developped in the context of the PDN project."
-banner: "/highlights/banners/topic_priority_list_ai.jpg"
-banner_large: "/highlights/banners/topic_priority_list_ai.jpg"
+banner: "/highlights/banners/topic_priority_list.jpg"
+banner_large: "/highlights/banners/topic_priority_list.jpg"
 banner_caption: "Priority Pathogens List data flow"
 highlights_topics: [Viruses, SARS-CoV-2, Influenza, RSV, Surveillance]
 tags: [Viruses, SARS-CoV-2, Influenza, RSV, Surveillance]
