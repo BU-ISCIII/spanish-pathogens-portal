@@ -36,6 +36,7 @@ sudo git clone --recursive https://gitlab.isciii.es/BU-ISCIII/spanish-pathogens-
 ```bash
 cd spanish-pathogens-portal
 # Borrar carpeta public si existe
+sudo systemctl stop httpd
 rm -rf public
 sudo /opt/go/bin/hugo serve --baseURL http://dpathogen.isciiides.es --port 80 --bind 172.20.10.33
 ```
@@ -57,5 +58,7 @@ y se habrá creado una carpeta que se llama `public`.
 3. Copiar la carpeta public generada por Hugo en la carpeta html de apache
 
 ```bash
-sudo cp -r /opt/spanish-pathogens-portal/public /var/www/html
+sudo systemctl start httpd
+sudo cp -r /opt/spanish-pathogens-portal/public/* /var/www/html
+sudo systemctl restart httpd
 ```
