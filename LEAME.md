@@ -27,7 +27,7 @@ CGO_ENABLED=1 go install -tags extended,withdeploy github.com/gohugoio/hugo@late
 1. Clonar el repo de Github
 
 ```bash
-git clone --recursive https://github.com/BU-ISCIII/spanish-pathogens-portal.git
+git clone --recursive https://gitlab.isciii.es/bu-isciii/spanish-pathogens-portal.git
 ```
 
 2. Comprobar que está bien instalado
