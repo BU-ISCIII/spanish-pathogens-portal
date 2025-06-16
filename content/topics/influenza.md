@@ -2,7 +2,7 @@
 title: "Influenza"
 description: Dashboards and data related with Influenza.
 topic: influenza
-banner: /topics/banners/influenza.jpg
+banner: /topics/banners/topic_influenza.jpg
 banner_caption: "Influenza"
 menu:
   topics:
