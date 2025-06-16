@@ -1,0 +1,52 @@
+{{ $dashboards := .Site.Menus.dashboards }}
+{{ $currentPage := path.Split (path.Clean .RelPermalink) }}
+{{ $displayed_in_homepage := .IsHome }}
+{{ $dashboards_to_show := slice }}
+
+{{/* Compile list of dashboards to show depending upon the page */}}
+{{ if or (eq $currentPage.File "dashboards") ($displayed_in_homepage) }}
+  {{ $dashboards_to_show = $dashboards_to_show | append (where $dashboards "Identifier" "ne" "all_dashboards") }}
+{{ else if strings.HasSuffix $currentPage.Dir "/topics/" }}
+  {{ range $dashboards }}
+    {{if in (apply .Page.Params.dashboards_topics "urlize" ".") $currentPage.File }}
+      {{ $dashboards_to_show = $dashboards_to_show | append . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-2 {{ if not $displayed_in_homepage }}g-lg-3{{ end }}" id="dashboard-cards-container">
+    {{ range $dashboards_to_show }}
+    {{- $redirect    := .Page.Params.redirect_url -}}
+    {{- $link        := or $redirect .Page.RelPermalink -}}
+    {{ $dashboardPage := path.Split (path.Clean .Page.RelPermalink) }}
+    <div class="col p-2 dashboard-card" data-status="{{.Page.Params.data_status}}">
+        <div class="bg-dashboard">
+            <div aria-hidden="true">
+                <a href="{{ $link }}"
+                     {{ if $redirect }}target="_blank" rel="noopener noreferrer"{{ end }}>
+                    <img class="img-fluid" src="{{ with .Page.Params.banner }}{{ . }}{{ else }}{{ "/dashboards/internal_dash.jpg" }}{{ end }}"
+                         alt="Thumbnail for {{ .Name }}">
+                </a>
+            </div>
+            <div class="p-2 bg-dashboard-title">
+                <h6>
+                      <a href="{{ $link }}"
+                        {{ if $redirect }}target="_blank" rel="noopener noreferrer"{{ end }}>
+                        {{ .Name }}
+                    </a>
+                </h6>
+            </div>
+            <div class="p-2">
+                {{ .Page.Description }}
+            </div>
+            {{ if not $displayed_in_homepage }}
+                <div class="px-2 pb-3">
+                    {{ range (.Page.GetTerms "dashboards_topics") }}
+                    <span class="topic_badge"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></span>
+                    {{ end }}
+                </div>
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+</div>
