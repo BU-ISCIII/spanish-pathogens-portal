@@ -26,7 +26,7 @@ layout: about_navbar
 <div class="row mt-4">
   <div class="col-12 col-md-4 col-lg-3 d-none d-md-block">
     <figure class="figure">
-      <img width="250" alt="swedish_pathogen_portal" src="/img/swe_pathogens_social_media.png">
+      <img width="250" alt="swedish_pathogen_portal" src="/img/swe_pathogens_logo.png">
     </figure>
   </div>
   <div class="col-12 col-md-8 col-lg-9">
@@ -51,7 +51,7 @@ layout: about_navbar
 <div class="row mt-4">
   <div class="col-12 col-md-4 col-lg-3 d-none d-md-block">
     <figure class="figure">
-      <img width="250" alt="norway_pathogens_portal" src="/img/no_pathogens_portal.png">
+      <img width="250" alt="norway_pathogens_portal" src="/img/pathogens_portal_norway_logo_light.png">
     </figure>
   </div>
   <div class="col-12 col-md-8 col-lg-9">
