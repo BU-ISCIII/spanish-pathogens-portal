@@ -13,7 +13,7 @@ layout: about_navbar
 <div class="row">
   <div class="col-12 col-md-4 col-lg-3 d-none d-md-block">
     <figure class="figure mt-3">
-      <img width="250" alt="ISCIII logo" src="/img/isciii_logo.png">
+      <img width="250" alt="ISCIII logo" src="/img/isciii_logo_gob.png">
     </figure>
   </div>
   <div class="col-12 col-md-8 col-lg-9">
