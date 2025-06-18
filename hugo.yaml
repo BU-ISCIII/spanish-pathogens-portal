@@ -14,7 +14,7 @@ languages:
 
 # some parameters that can be used across site, such variable can be defined here than in front matter
 params:
-  title: "Spanish Pathogens Portal: supporting surveillance and research"
+  title: "Spanish Pathogens Portal: supporting genomic surveillance and research"
   description: "Spanish Pathogens Portal provides information to support genomic surveillance and research."
   images:
     - /img/es_pathogens_logo.png

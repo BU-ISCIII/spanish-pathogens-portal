@@ -1,13 +1,13 @@
 ---
-title: "Surveillance"
-description: Surveillance
-topic: surveillance
+title: "Genomic Surveillance"
+description: Genomic Surveillance
+topic: genomic surveillance
 banner: /topics/banners/topic_surveillance.jpg
-banner_caption: "Surveillance"
+banner_caption: "Genomic Surveillance"
 menu:
   topics:
-    name: Surveillance
-    identifier: surveillance
+    name: Genomic Surveillance
+    identifier: genomic surveillance
 ---
 
 This section includes dashboards and reports related with **Surveillance in Spain**.
