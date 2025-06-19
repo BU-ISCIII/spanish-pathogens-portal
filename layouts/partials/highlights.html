@@ -1,0 +1,66 @@
+{{ $highlights := where (where $.Site.Pages "Section" "highlights" ) "Kind" "page" }}
+{{ $currentPage := path.Split (path.Clean .RelPermalink) }}
+{{ $displayedInHome := .IsHome }}
+{{ $isSingleHighlightPage := and (eq $currentPage.Dir "/highlights/") ($currentPage.File) }}
+{{ $highlights_to_show := slice }}
+
+{{/* Compile list of highlight to show depending upon the page */}}
+{{ if $displayedInHome }}
+  {{ $highlights_to_show = $highlights_to_show | append (first 3 $highlights) }}
+{{ else if $isSingleHighlightPage }}
+  {{ $highlights_to_show = $highlights_to_show | append (first 4 (.Scratch.Get "highlights_list")) }}
+{{ else if strings.HasSuffix $currentPage.Dir "/topics/" }}
+  {{ range $highlights }}
+    {{if in (apply .Params.highlights_topics "urlize" ".") $currentPage.File }}
+      {{ $highlights_to_show = $highlights_to_show | append . }}
+    {{ end }}
+  {{ end }}
+  {{ if strings.HasPrefix $currentPage.Dir "/topics/" }}
+    {{ $highlights_to_show = first 3 $highlights_to_show }}
+  {{ end }}
+{{ else }}
+  {{ $highlights_to_show = $highlights_to_show | append $highlights }}
+{{ end }}
+
+<div class="row row-cols-1 row-cols-sm-2 {{ if $isSingleHighlightPage }}row-cols-lg-4{{ else }}row-cols-lg-3{{ end }}
+            g-2 {{ if not $displayedInHome }}g-lg-3{{ end }}">
+{{ range $highlights_to_show }}
+  <!-- If not displayed in home page compile search tags list to use for searching -->
+  <div class="col data-highlight" 
+    {{ if eq $currentPage.File "highlights" }}
+      {{ $search_tags := slice .Title }}
+      {{ range (.GetTerms "highlights_topics") }}
+        {{ $search_tags = $search_tags | append .LinkTitle }}
+      {{ end }}
+      {{ with .Params.tags }}
+        {{ $search_tags = $search_tags | append . }}
+      {{ end }}
+      data-search-tags="{{ delimit $search_tags ":" | lower }}"
+    {{ end }}>
+    <div class="bg-highlight">
+      <div aria-hidden="true">
+        <a href="{{ .Page.RelPermalink }}">
+          <img class="img-fluid rounded-top" src="{{ .Params.banner }}" alt="{{ .Title }}">
+        </a>
+      </div>
+      <div class="mt-2">
+        <small>{{ .Date | time.Format ":date_long" }}</small>
+      </div>
+      <div>
+        <h6 class="my-1"><a class="dark-blue" href="{{ .Page.RelPermalink }}">{{ .Title }}</a></h6>
+      </div>
+      {{ if not (or $displayedInHome $isSingleHighlightPage) }}
+        <div>
+          {{ .Summary }}<br>
+          <div class="mt-1">
+            {{ range (.GetTerms "highlights_topics") }}
+              {{ $slug := urlize .LinkTitle }}
+              <span class="topic_badge"><a href="{{ printf "/topics/%s/" $slug | relURL }}">{{ .LinkTitle }}</a></span>
+            {{ end }}
+          </div>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+{{ end }}
+</div>
