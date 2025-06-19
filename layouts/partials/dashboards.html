@@ -42,7 +42,8 @@
             {{ if not $displayed_in_homepage }}
                 <div class="px-2 pb-3">
                     {{ range (.Page.GetTerms "dashboards_topics") }}
-                    <span class="topic_badge"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></span>
+                      {{ $slug := urlize .LinkTitle }} 
+                    <span class="topic_badge"><a href="{{ printf "/topics/%s/" $slug | relURL }}">{{ .LinkTitle }}</a></span>
                     {{ end }}
                 </div>
             {{ end }}
