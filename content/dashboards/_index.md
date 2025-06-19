@@ -13,4 +13,4 @@ menu:
     identifier: dashboards
 ---
 
-Data dashboards are pages that promote data and other research resources. The dashboards provide context for the resource, and usually dynamic data visualisations.
+Below is a list of dashboards maintained by Spanish research groups, along with ongoing projects involving Spanish collaborators that are expected to produce data dashboards in the future.
