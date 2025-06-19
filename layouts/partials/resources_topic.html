@@ -1,0 +1,71 @@
+{{ $resources := where (where $.Site.Pages "Section" "bioinformatic_resources" ) "Kind" "page" }}
+{{ $currentPage := path.Split (path.Clean .RelPermalink) }}
+{{ $displayedInHome := .IsHome }}
+{{ $isSingleResourcePage := and (eq $currentPage.Dir "/bioinformatic_resources/") ($currentPage.File) }}
+{{ $resources_to_show := slice }}
+
+{{/* Compile list of resources to show depending upon the page */}}
+{{ if $displayedInHome }}
+  {{ $resources_to_show = $resources_to_show | append (first 3 $resources) }}
+{{ else if $isSingleResourcePage }}
+  {{ $resources_to_show = $resources_to_show | append (first 4 (.Scratch.Get "resources_list")) }}
+{{ else if strings.HasSuffix $currentPage.Dir "/topics/" }}
+  {{ range $resources }}
+    {{if in (apply .Params.resources_topics "urlize" ".") $currentPage.File }}
+      {{ $resources_to_show = $resources_to_show | append . }}
+    {{ end }}
+  {{ end }}
+  {{ if strings.HasPrefix $currentPage.Dir "/topics/" }}
+    {{ $resources_to_show = first 3 $resources_to_show }}
+  {{ end }}
+{{ else }}
+  {{ $resources_to_show = $resources_to_show | append $resources }}
+{{ end }}
+
+<div class="row row-cols-1 row-cols-sm-2 {{ if $isSingleResourcePage }}row-cols-lg-4{{ else }}row-cols-lg-3{{ end }}
+            g-2 {{ if not $displayedInHome }}g-lg-3{{ end }}">
+
+  {{ range $resources_to_show }}
+    {{- $redirect := .Params.redirect_url -}}
+    {{- $link     := or $redirect .RelPermalink -}}
+    <div class="col p-2 dashboard-card" 
+         {{ with .Params.data_status }}data-status="{{ . }}"{{ end }}>
+      <div class="bg-dashboard">
+        <!-- banner -->
+        <div aria-hidden="true">
+          <a href="{{ $link }}" {{ if $redirect }}target="_blank" rel="noopener noreferrer"{{ end }}>
+            <img class="img-fluid" 
+                 src="{{ with .Params.banner }}{{ . }}{{ else }}{{ "/bioinformatic_resources/internal_resource.jpg" }}{{ end }}"
+                 alt="Thumbnail for {{ .Title }}">
+          </a>
+        </div>
+
+        <!-- title -->
+        <div class="p-2 bg-dashboard-title">
+          <h6>
+            <a href="{{ $link }}" {{ if $redirect }}target="_blank" rel="noopener noreferrer"{{ end }}>
+              {{ .Title }}
+            </a>
+          </h6>
+        </div>
+
+        <!-- description -->
+        <div class="p-2">
+          {{ .Description }}
+        </div>
+
+        <!-- topic badges -->
+        {{ if not $displayedInHome }}
+          <div class="px-2 pb-3">
+            {{ range (.GetTerms "resources_topics") }}
+              <span class="topic_badge">
+                <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+              </span>
+            {{ end }}
+          </div>
+        {{ end }}
+      </div>
+    </div>
+  {{ end }}
+
+</div>
