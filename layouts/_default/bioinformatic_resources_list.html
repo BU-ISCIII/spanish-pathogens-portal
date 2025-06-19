@@ -1,0 +1,55 @@
+{{ define "main" }}
+
+<!-- ===== Section header ===== -->
+<h1 class="mb-3">{{ .Title }}</h1>
+{{ if .Content }}
+  <div class="mb-4">{{ .Content }}</div>
+{{ end }}
+
+<!-- ===== Cards for each pipeline ===== -->
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
+  {{ range .Pages.ByTitle }}
+    {{- $redirect := .Params.redirect_url -}}       <!-- external URL -->
+    {{- $link := or $redirect .RelPermalink -}}     <!-- fallback to internal link -->
+
+    <div class="col p-2 dashboard-card">
+      <div class="bg-dashboard">
+
+        <!-- Banner -->
+        <div aria-hidden="true">
+          <a href="{{ $link }}" {{ if $redirect }}target="_blank" rel="noopener noreferrer"{{ end }}>
+            <img class="img-fluid"
+                 src="{{ with .Params.banner }}{{ . }}{{ else }}{{ "/bioinformatic_resources/internal_dash.jpg" }}{{ end }}"
+                 alt="Thumbnail for {{ .Title }}">
+          </a>
+        </div>
+
+        <!-- Title -->
+        <div class="p-2 bg-dashboard-title">
+          <h6>
+            <a href="{{ $link }}" {{ if $redirect }}target="_blank" rel="noopener noreferrer"{{ end }}>
+              {{ .Title }}
+            </a>
+          </h6>
+        </div>
+
+        <!-- Description -->
+        <div class="p-2">
+          {{ .Description }}
+        </div>
+
+        <!-- Topic badges -->
+        <div class="px-2 pb-3">
+          {{ range (.GetTerms "resources_topics") }}
+            {{ $slug := urlize .LinkTitle }}
+            <span class="topic_badge">
+              <a href="{{ printf "/topics/%s/" $slug | relURL }}">{{ .LinkTitle }}</a>
+            </span>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  {{ end }}
+</div>
+
+{{ end }}

@@ -58,8 +58,9 @@
         {{ if not $displayedInHome }}
           <div class="px-2 pb-3">
             {{ range (.GetTerms "resources_topics") }}
+              {{ $slug := urlize .LinkTitle }}
               <span class="topic_badge">
-                <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+                <a href="/topics/{{ $slug }}/">{{ .LinkTitle }}</a>
               </span>
             {{ end }}
           </div>
