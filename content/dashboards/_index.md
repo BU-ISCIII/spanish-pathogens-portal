@@ -2,7 +2,7 @@
 title: Dashboards
 menu:
   navbar_main:
-    name: Data Dashboards
+    name: Dashboards
     identifier: dashboards
     weight: 1
     params:
