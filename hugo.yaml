@@ -37,10 +37,12 @@ params:
 taxonomies:
   highlights_topic: highlights_topics
   dashboards_topic: dashboards_topics
+  resources_topics: resources_topics
 
 permalinks:
   highlights_topics: "/highlights/topics/:slug/"
   dashboards_topics: "/dashboards/topics/:slug/"
+  resources_topics: "/bioinformatic_resources/topics/:slug/"
 
 # The following setting is to render HTML content in a markdown file.
 # Can be set to true only if you have complete control over the content
