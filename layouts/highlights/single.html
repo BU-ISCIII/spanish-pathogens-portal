@@ -1,0 +1,44 @@
+{{ define "main" }}
+
+<h2>{{ .Title}}</h2>
+<p class="text-muted">Published: {{ .Date.Format "2006-01-02"}}</p>
+
+<figure class="figure float-md-end mx-2" style="max-width: 50%;">
+  <img src="{{ if (isset .Params "banner_large") }}{{ .Params.banner_large }}{{ else }}{{ .Params.banner }} {{ end }}" alt="{{ .Title }}" class="img-thumbnail">
+  <figcaption class="figure-caption mt-1"><i>{{ .Params.banner_caption | markdownify }}</i></figcaption>
+</figure>
+
+{{ .Content }}
+
+<!-- Topics list and social media sharing -->
+<div class="row">
+  <div class="col-md">
+    <span><b>Topics: </b></span>
+    {{ range (.GetTerms "highlights_topics") }}
+      {{ $slug := urlize .LinkTitle }}
+    <span class="topic_badge"><a href="{{ printf "/topics/%s/" $slug | relURL }}">{{ .LinkTitle }}</a>/span>
+    {{ end }}
+  </div>
+  <div class="col-md text-md-end mt-2 mt-md-0">
+    <span><b>Share this: </b></span>
+    <a target="_blank" class="share-button" aria-label="share highlight on X"
+       href="https://twitter.com/intent/tweet?text=Data%20highlight%20on%20the%20Pathogens%20Portal:%20{{ .Title }}, {{ .Permalink }}"><i class="bi bi-twitter-x me-1"></i></a>
+    <a target="_blank" class="share-button" aria-label="share highlight on linkedin"
+       href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink }}"><i class="bi bi-linkedin me-1"></i></a>
+    <a target="_blank" class="share-button" aria-label="share highlight on facebook"
+       href="https://www.facebook.com/sharer/sharer.php?u={{ .Permalink }}"><i class="bi bi-facebook me-1"></i></a>
+  </div>
+</div>
+
+<div class="containerborder">
+{{ $related := site.RegularPages.Related . }}
+{{ if $related }}
+  <div class="mt-4">
+    <h3>Related highlights</h3>
+    {{ .Scratch.Set "highlights_list" (first 4 $related) }}
+    {{ partial "highlights.html" . }}
+  </div>
+{{ end }}
+</div>
+
+{{ end }}
