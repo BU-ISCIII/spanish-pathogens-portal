@@ -1,13 +1,13 @@
 ---
-title: "Waste Water"
-description: Dashboards and data related with Waste Water
-topic: waste water
+title: "Wastewater"
+description: Dashboards and data related with Wastewater
+topic: wastewater
 banner: /topics/banners/topic_wastewater.png
-banner_caption: "Waste Water"
+banner_caption: "Wastewater"
 menu:
   topics:
-    name: Waste Water
-    identifier: waste water
+    name: Wastewater
+    identifier: wastewater
 ---
 
 This section includes dashboards and reports related to **wastewater-based genomic surveillance**, a powerful tool to monitor the presence and spread of **viruses and bacteria** in communities.
