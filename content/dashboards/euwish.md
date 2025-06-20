@@ -6,7 +6,7 @@ menu:
   dashboards:
     name: EU-WISH
     identifier: euwish_dashboard
-dashboards_topics: [Viruses, SARS-CoV-2, Genomic Surveillance, Bacteria, Antimicrobial Resistance, Waste Water]
+dashboards_topics: [Viruses, SARS-CoV-2, Genomic Surveillance, Bacteria, Antimicrobial Resistance, Wastewater]
 redirect_url: "https://www.eu-wish.eu/"
 ---
 
