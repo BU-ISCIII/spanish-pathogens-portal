@@ -5,8 +5,8 @@ summary: "Priority Pathogens List developped in the context of the PDN project."
 banner: "/highlights/banners/topic_priority_list.jpg"
 banner_large: "/highlights/banners/topic_priority_list.jpg"
 banner_caption: "Priority Pathogens List data flow"
-highlights_topics: [Viruses, SARS-CoV-2, Influenza, RSV, Genomic Surveillance]
-tags: [Viruses, SARS-CoV-2, Influenza, RSV, Genomic Surveillance]
+highlights_topics: [Viruses, Bacteria, SARS-CoV-2, Influenza, RSV, Genomic Surveillance]
+tags: [Viruses, Bacteria, SARS-CoV-2, Influenza, RSV, Genomic Surveillance]
 ---
 
 ## Objectives
