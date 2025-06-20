@@ -32,7 +32,7 @@ params:
     contact_email: "bioinformatica@isciii.es"
   # Url to github repository, node should keep the URL of their fork
   git_repository: "https://github.com/BU-ISCIII/spanish-pathogens-portal"
-  version: "v1.0.0"
+  version: "1.0.2"
 
 taxonomies:
   highlights_topic: highlights_topics
