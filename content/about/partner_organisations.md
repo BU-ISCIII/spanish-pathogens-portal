@@ -60,3 +60,15 @@ layout: about_navbar
   </div>
 </div>
 <hr class="faded" />
+<div class="row mt-4">
+  <div class="col-12 col-md-4 col-lg-3 d-none d-md-block">
+    <figure class="figure">
+      <img width="250" alt="dutch_pathogens_portal" src="/img/Pathogens-Portal-Logo-Netherlands-FINAL.png">
+    </figure>
+  </div>
+  <div class="col-12 col-md-8 col-lg-9">
+    <h6>Pathogens Portal Netherlands</h6>
+    <p><a href="https://www.pathogensportal.nl/" target="_blank">Pathogens Portal Netherlands</a> provides information about available datasets, resources, tools and services related to pathogens research in the Netherlands. The first datasets that are made available are from Arboviruses, with others to follow.</p>
+  </div>
+</div>
+<hr class="faded" />
