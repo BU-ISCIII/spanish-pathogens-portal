@@ -28,6 +28,7 @@ sudo CGO_ENABLED=1 go install -tags extended,withdeploy github.com/gohugoio/hugo
 
 ```bash
 cd /opt/
+sudo rm -rf spanish-pathogens-portal
 sudo git clone --recursive https://gitlab.isciii.es/BU-ISCIII/spanish-pathogens-portal.git
 ```
 
@@ -53,12 +54,15 @@ Web Server is available at http://pathogenportal.isciiides.es:80/ (bind address 
 Press Ctrl+C to stop
 ```
 
-y se habrá creado una carpeta que se llama `public`.
+Se habrá creado una carpeta que se llama `public`. En la URL podemos comprobar que la pagina se visualiza correctamente.
+
+Pulsar `Ctrl+C` para parar el servidor de Hugo.
 
 3. Copiar la carpeta public generada por Hugo en la carpeta html de apache
 
 ```bash
 sudo systemctl start httpd
+sudo rm -rf /var/www/html/*
 sudo cp -r /opt/spanish-pathogens-portal/public/* /var/www/html
 sudo systemctl restart httpd
 ```
