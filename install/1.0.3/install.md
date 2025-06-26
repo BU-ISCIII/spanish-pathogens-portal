@@ -57,8 +57,8 @@ Crear un archivo de configuración, por ejemplo `/etc/httpd/conf.d/pathogens_por
         Require all granted
     </Directory>
  
-    ErrorLog logs/pathogens_portal_error.log
-    CustomLog logs/pathogens_portal_access.log combined
+    ErrorLog logs/pathogens_portal.pre.isciiides.es-apache.error.log.log
+    CustomLog logs/pathogens_portalpre.isciiides.es-apache.access.log combined
  
 </VirtualHost>
 ```

@@ -16,7 +16,7 @@ build_site:
   tags:
     - golang00
   before_script:
-    - apt-get update && apt-get install -y wget curl jq tar
+    - apt-get update && apt-get install -y wget curl tar
     - wget -q "$HUGO_URL"
     - tar -xzf "$HUGO_TARBALL"
     - mv hugo /usr/local/bin/hugo
