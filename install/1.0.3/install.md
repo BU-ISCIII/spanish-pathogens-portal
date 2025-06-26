@@ -11,13 +11,7 @@ Este documento describe los pasos para instalar el portal en el servidor web des
 
 ### 1. Descargar el archivo desde GitLab
 
-Descargar el paquete comprimido desde la siguiente URL (requiere sesión activa en GitLab):
-
-```bash
-wget "https://gitlab.isciii.es/-/project/259/uploads/b795438b82f58d5ec6187e6195acf86e/public.tar.gz"
-```
-
-> Nota: Si `wget` no funciona por sesión, también puede descargarse manualmente desde el navegador y copiarlo al servidor.
+Descargar el paquete comprimido desde la siguiente URL (requiere sesión activa en GitLab): https://gitlab.isciii.es/-/project/259/uploads/b795438b82f58d5ec6187e6195acf86e/public.tar.gz, y copiarlo al servidor.
 
 ### 2. Descomprimir el contenido en `/var/www/html`
 
