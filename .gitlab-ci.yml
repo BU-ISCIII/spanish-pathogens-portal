@@ -1,0 +1,71 @@
+image: golang:1.21
+
+variables:
+  HUGO_VERSION: "0.147.8"
+  HUGO_TARBALL: "hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz"
+  HUGO_URL: "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_TARBALL}"
+  PKG_NAME: "pathogensportal_public"
+
+stages:
+  - build
+  - publish
+
+# ---------- build ----------
+build_site:
+  stage: build
+  only:
+    - tags
+  before_script:
+    - apt-get update && apt-get install -y wget curl jq tar
+    - wget -q "$HUGO_URL"
+    - tar -xzf "$HUGO_TARBALL"
+    - mv hugo /usr/local/bin/hugo
+  script:
+    - hugo --minify
+    - tar -czf pathogensportal_public.tar.gz public/
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - pathogensportal_public.tar.gz
+
+# ---------- publish ----------
+publish_release_and_registry:
+  stage: publish
+  needs: [build_site]
+  only:
+    - tags
+  variables:
+    API_URL: "$CI_API_V4_URL/projects/$CI_PROJECT_ID"
+    TAG_NAME: "$CI_COMMIT_TAG"
+  script: |
+    echo "Uploading pathogensportal_public.tar.gz via API /uploads"
+    upload_json=$(curl --silent --show-error --fail \
+      --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+      --form "file=@pathogensportal_public.tar.gz" \
+      "$API_URL/uploads")
+
+    # Extract relative URL from /upload
+    full_path=$(echo "$upload_json" | jq -r .full_path)
+    full_url="$CI_SERVER_URL/$full_path"
+    echo "File uploaded to: $full_url"
+
+    echo "Creating release $TAG_NAME..."
+    curl --silent --output /dev/null --write-out "%{http_code}" \
+      --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+      --data "name=Release $TAG_NAME&tag_name=$TAG_NAME&description=Automated release for $TAG_NAME" \
+      --request POST "$API_URL/releases" | grep -qE '^(20[0-9]|409)$'
+
+    echo "Add asset link..."
+    curl --silent --show-error --fail \
+      --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+      --header "Content-Type: application/json" \
+      --data "{\"name\":\"pathogensportal_public.tar.gz\",\"url\":\"$full_url\"}" \
+      --request POST "$API_URL/releases/$TAG_NAME/assets/links"
+
+    echo "Upload to Package Registry..."
+    curl --silent --show-error --fail \
+      --header "JOB-TOKEN: $CI_JOB_TOKEN" \
+      --upload-file pathogensportal_public.tar.gz \
+      "$API_URL/packages/generic/$PKG_NAME/$TAG_NAME/pathogensportal_public.tar.gz"
+
+    echo "Finished publishing."
