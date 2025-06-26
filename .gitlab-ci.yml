@@ -49,7 +49,7 @@ publish_release_and_registry:
       "$API_URL/uploads")
 
     # Extract relative URL from /upload
-    full_path=$(echo "$upload_json" | jq -r .full_path)
+    full_path=$(echo "$upload_json" | sed -n 's/.*"full_path":"\([^"]*\)".*/\1/p')    
     full_url="$CI_SERVER_URL/$full_path"
     echo "File uploaded to: $full_url"
 
