@@ -46,18 +46,20 @@ Crear un archivo de configuración, por ejemplo `/etc/httpd/conf.d/pathogens_por
 
 ```apache
 <VirtualHost *:80>
+ 
+    ServerAdmin sistemas@isciii.es
     ServerName pathogensportal.isciiides.es
-
     DocumentRoot /var/www/html/pathogens_portal_public
-
+ 
     <Directory /var/www/html/pathogens_portal_public>
         Options Indexes FollowSymLinks
         AllowOverride None
         Require all granted
     </Directory>
-
-    ErrorLog /var/log/httpd/pathogens_portal_error.log
-    CustomLog /var/log/httpd/pathogens_portal_access.log combined
+ 
+    ErrorLog logs/pathogens_portal_error.log
+    CustomLog logs/pathogens_portal_access.log combined
+ 
 </VirtualHost>
 ```
 
