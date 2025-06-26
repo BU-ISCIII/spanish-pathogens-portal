@@ -39,6 +39,8 @@ publish_release_and_registry:
   variables:
     API_URL: "$CI_API_V4_URL/projects/$CI_PROJECT_ID"
     TAG_NAME: "$CI_COMMIT_TAG"
+  before_script:
+    - apt-get update && apt-get install -y jq curl
   script: |
     echo "Uploading pathogensportal_public.tar.gz via API /uploads"
     echo "curl --silent --show-error --fail --header \"PRIVATE-TOKEN: $GITLAB_TOKEN\" --form 'file=@pathogensportal_public.tar.gz' "$API_URL/uploads\"""
@@ -49,7 +51,7 @@ publish_release_and_registry:
       "$API_URL/uploads")
 
     # Extract relative URL from /upload
-    full_path=$(echo "$upload_json" | sed -n 's/.*"full_path":"\([^"]*\)".*/\1/p')    
+    full_path=$(echo "$upload_json" | jq -r .full_path)   
     full_url="$CI_SERVER_URL/$full_path"
     echo "File uploaded to: $full_url"
 
