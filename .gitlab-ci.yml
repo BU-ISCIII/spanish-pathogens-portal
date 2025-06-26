@@ -41,7 +41,8 @@ publish_release_and_registry:
     TAG_NAME: "$CI_COMMIT_TAG"
   script: |
     echo "Uploading pathogensportal_public.tar.gz via API /uploads"
-    echo "$API_URL"
+    echo "curl --silent --show-error --fail --header \"PRIVATE-TOKEN: $GITLAB_TOKEN\" --form 'file=@pathogensportal_public.tar.gz' º"$API_URL/uploads\"""
+    
     upload_json=$(curl --silent --show-error --fail \
       --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
       --form "file=@pathogensportal_public.tar.gz" \
