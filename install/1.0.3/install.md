@@ -11,7 +11,12 @@ Este documento describe los pasos para instalar el portal en el servidor web des
 
 ### 1. Descargar el archivo desde GitLab
 
-Descargar el paquete comprimido desde la siguiente URL (requiere sesión activa en GitLab): https://gitlab.isciii.es/-/project/259/uploads/b795438b82f58d5ec6187e6195acf86e/public.tar.gz, y copiarlo al servidor.
+Descargar el paquete comprimido desde UNA DE LAS siguientes URL (requiere sesión activa en GitLab) o bien en el:
+
+1. Package registry: <https://gitlab.isciii.es/bu-isciii/spanish-pathogens-portal/-/packages/749>
+2. Asset de la release:<https://gitlab.isciii.es//-/project/259/uploads/c5e37877d7f82949bb2d4fe2392c860a/pathogensportal_public.tar.gz>
+
+Copiar el archivo al servidor.
 
 ### 2. Descomprimir el contenido en `/var/www/html`
 
