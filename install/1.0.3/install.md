@@ -22,8 +22,8 @@ Copiar el archivo al servidor.
 
 ```bash
 sudo mkdir -p /var/www/html/pathogens_portal_public
-sudo tar -xzf public.tar.gz -C /var/www/html/pathogens_portal_public --strip-components=1
-sudo rm -rf public.tar.gz
+sudo tar -xzf pathogensportal_public.tar.gz -C /var/www/html/pathogens_portal_public --strip-components=1
+sudo rm -rf pathogensportal_public.tar.gz
 ```
 
 Esto dejará los archivos estáticos del portal en:
